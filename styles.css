@@ -1,0 +1,341 @@
+/* ============================================================
+   Maple Row Block Association — job application form
+   A paper application on a dark desk. The pseudo-classes act like
+   grading ink: red = needs fixing, green = approved, terracotta
+   = our brand stamp on focus and checked choices.
+   Type: Fraunces (headings) · Public Sans (form UI)
+   ============================================================ */
+
+:root {
+  --desk: #191613;
+  --paper: #f9f5ec;
+  --paper-shade: #f0e9d9;
+  --field: #fffdf7;
+  --ink: #26221b;
+  --ink-soft: #7c7464;
+  --line: rgba(38, 34, 27, 0.24);
+  --accent: #b0522a;
+  --accent-deep: #8a3d1e;
+  --accent-soft: rgba(176, 82, 42, 0.16);
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ---------- the desk behind the paper ---------- */
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 48px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: var(--body);
+  color: var(--ink);
+  background-color: var(--desk);
+  background-image:
+    radial-gradient(52rem 30rem at 85% -10%, rgba(176, 82, 42, 0.22), transparent 60%),
+    radial-gradient(46rem 30rem at 0% 110%, rgba(138, 61, 30, 0.18), transparent 55%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- the printed sheet ---------- */
+
+.container {
+  width: 100%;
+  max-width: 580px;
+  padding: 42px 40px 38px;
+  background-color: var(--paper);
+  border: 1px solid rgba(38, 34, 27, 0.35);
+  border-radius: 18px;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.5),
+    inset 0 2px 0 rgba(255, 253, 247, 0.6);
+  animation: settle 0.5s ease-out both;
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- header ---------- */
+
+.form-eyebrow {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.form-header h1 {
+  margin: 0 0 12px;
+  font-family: var(--display);
+  font-size: clamp(30px, 6vw, 40px);
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.form-lede {
+  margin: 0 0 10px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* ---------- the form ---------- */
+
+form {
+  display: grid;
+  gap: 7px;
+}
+
+label {
+  margin-top: 13px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  background-color: var(--field);
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+select {
+  appearance: none;
+  padding-right: 42px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%237c7464' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  cursor: pointer;
+}
+
+textarea {
+  min-height: 120px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+::placeholder {
+  color: #a49a87;
+  opacity: 1;
+}
+
+/* The name field gets the signature treatment: a rounded pill. */
+input:first-of-type {
+  padding-inline: 20px;
+  border-radius: 999px;
+  background-color: #ffffff;
+}
+
+/* ---------- grading ink: red needs fixing, green is approved ---------- */
+
+input:invalid,
+select:invalid,
+textarea:invalid {
+  border-color: red;
+}
+
+input:valid,
+select:valid,
+textarea:valid {
+  border-color: green;
+}
+
+/* Focus stamps the terracotta brand color and clears the default outline. */
+input:focus,
+textarea:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+select:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+/* ---------- availability: hand-ticked boxes ---------- */
+
+fieldset.radio-group {
+  margin: 16px 0 6px;
+  padding: 12px 18px 18px;
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  background-color: var(--paper-shade);
+}
+
+legend {
+  padding: 0 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.radio-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px 8px 11px;
+  background-color: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.radio-option label {
+  margin-top: 0;
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--ink);
+}
+
+/* Custom radio dots: native chrome off, ink stamp on when checked. */
+.radio-group input[type="radio"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  border: 2px solid var(--ink-soft);
+  border-radius: 50%;
+  background-color: var(--field);
+  cursor: pointer;
+  transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.radio-group input[type="radio"]:focus {
+  box-shadow: none;
+}
+
+.radio-group input[type="radio"]:checked {
+  border-color: var(--accent);
+  background-color: var(--accent);
+  box-shadow:
+    inset 0 0 0 3px var(--field),
+    0 0 0 3px var(--accent-soft);
+}
+
+.radio-group input[type="radio"]:checked + label {
+  color: var(--accent-deep);
+}
+
+/* The whole chip lights up with the tick (progressive enhancement). */
+.radio-option:has(input[type="radio"]:checked) {
+  border-color: var(--accent);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.radio-group input[type="radio"]:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------- submit ---------- */
+
+button {
+  margin-top: 18px;
+  padding: 14px 20px;
+  font: inherit;
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #fff8ee;
+  background-color: var(--accent);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(138, 61, 30, 0.35);
+  transition: background-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+button:hover {
+  background-color: var(--accent-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 26px rgba(138, 61, 30, 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(138, 61, 30, 0.35);
+}
+
+.form-note {
+  margin: 14px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+/* ---------- small desks ---------- */
+
+@media (max-width: 480px) {
+  body {
+    padding: 28px 14px;
+  }
+
+  .container {
+    padding: 30px 22px 28px;
+  }
+
+  .radio-option {
+    flex: 1 1 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .container {
+    animation: none;
+  }
+
+  button,
+  .radio-option,
+  .radio-group input[type="radio"] {
+    transition: none;
+  }
+}
